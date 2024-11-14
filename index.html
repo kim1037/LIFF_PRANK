@@ -128,15 +128,6 @@
       ])
       if (result) {
         alert(`[${result.status}] Message sent!`)
-        liff.sendMessages([{
-          type: "text",
-          text: "Hello, World!",
-        }]).then(() => {
-          console.log("message sent");
-        })
-          .catch((err) => {
-            console.log("error", err);
-          });
       } else {
         const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
 
