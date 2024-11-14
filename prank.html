@@ -26,7 +26,6 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     async function sendShare_Gift() {
-
       let name = await liff.getProfile().then(profile => profile.displayName).catch(e => e)
       const result = await liff.shareTargetPicker([
         {
@@ -59,13 +58,18 @@
               },
               {
                 "type": "text",
-                "text": "【東京迪士尼海洋】｜'Olu Mel 公仔掛飾",
+                "text": "【東京迪士尼海洋】｜正版 'Olu Mel 公仔掛飾",
                 "offsetTop": "xs",
                 "offsetBottom": "none",
                 "offsetStart": "xs",
                 "offsetEnd": "none",
                 "wrap": true,
-                "margin": "none"
+                "margin": "none",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": "https://liff.line.me/1657022499-njBkN1k3?auto=yes&type=text&text=%E6%88%91%E6%9C%80%E6%84%9B%E4%BE%86%E4%BE%86%E5%95%BE%E5%95%BE%E5%95%BE"
+                },
               }
             ]
           },
@@ -124,6 +128,15 @@
       ])
       if (result) {
         alert(`[${result.status}] Message sent!`)
+        liff.sendMessages([{
+          type: "text",
+          text: "Hello, World!",
+        }]).then(() => {
+          console.log("message sent");
+        })
+          .catch((err) => {
+            console.log("error", err);
+          });
       } else {
         const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
 
@@ -405,7 +418,7 @@
         if (!res.ok) {
           throw new Error('HTTP error! Status:', res.status)
         }
-        
+
         let config = await res.json()
         await liff.init({ liffId: config.liffId })
         if (liff.isLoggedIn()) {
