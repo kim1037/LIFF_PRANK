@@ -419,7 +419,8 @@
           throw new Error('HTTP error! Status:', res.status)
         }
 
-        let config = await res.json()
+        // let config = await res.json()
+        let config = { liffId: '2006568743-JvBEjvg7' }
         await liff.init({ liffId: config.liffId })
         if (liff.isLoggedIn()) {
           document.getElementById("btnShare").style.display = "block"
